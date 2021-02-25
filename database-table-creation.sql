@@ -1,10 +1,12 @@
 USE Master
 GO
+
+-- Create database
+CREATE DATABASE learner_management_system;
+
 --- Database and table creation script
 BEGIN TRANSACTION
 GO
--- Create database
-CREATE DATABASE learner_management_system;
 
 --DROP DATABASE learner_management_system;
 -- switch to created database
@@ -23,7 +25,7 @@ CREATE TABLE personal_information (
 	firstname NVARCHAR(MAX) NOT NULL,
 	lastname NVARCHAR(MAX) NOT NULL,
 	phone_number NVARCHAR(MAX) NOT NULL,
-	id_number NVARCHAR(MAX) NOT NULL UNIQUE,
+	id_number NVARCHAR(MAX) NOT NULL,
 	user_type_id INT NOT NULL FOREIGN KEY REFERENCES user_type(user_type_id),
 	created_date DATETIME NOT NULL
 );
@@ -67,13 +69,14 @@ CREATE TABLE streams (
 -- Table to carry student account status
 CREATE TABLE student_status (
 	student_status_id INT IDENTITY(1, 1) PRIMARY KEY,
-	status NVARCHAR(100) NOT NULL UNIQUE
+	status NVARCHAR(100) NOT NULL UNIQUE,
+	registered_date DATETIME
 );
 
 CREATE TABLE students (
 	student_id INT IDENTITY(1, 1) PRIMARY KEY,
 	personal_information INT NOT NULL FOREIGN KEY REFERENCES personal_information(personal_information_id),
-	stream_id INT NOT NULL FOREIGN KEY REFERENCES streamsstream_id),
+	stream_id INT NOT NULL FOREIGN KEY REFERENCES streams(stream_id),
 	student_status_id INT NOT NULL FOREIGN KEY REFERENCES student_status(student_status_id)
 );
 
@@ -81,10 +84,8 @@ CREATE TABLE students (
 CREATE TABLE student_guardian (
 	student_guardian_id INT IDENTITY(1, 1) PRIMARY KEY,
 	guardian_id INT FOREIGN KEY REFERENCES guardians(guardian_id),
-	student_id INT FOREIGN KEY REFEENCES students(student_id)
+	student_id INT FOREIGN KEY REFERENCES students(student_id)
 );
 
 ROLLBACK TRANSACTION;
 -- COMMIT TRANSECTION;
-
-
