@@ -21,15 +21,22 @@ CREATE TABLE user_type (
 CREATE TABLE user_personal_information (
 	user_personal_information_id INT IDENTITY(1, 1) PRIMARY KEY,
 	fullname NVARCHAR(MAX) NOT NULL,
-	phone_number NVARCHAR(20) NOT NULL,
-	id_number NVARCHAR(13) NOT NULL UNIQUE,
-	user_type INT NOT NULL FOREIGN KEY REFERENCES user_type(user_type_id)
+	phone_number NVARCHAR(MAX) NOT NULL,
+	id_number NVARCHAR(MAX) NOT NULL UNIQUE,
+	user_type INT NOT NULL FOREIGN KEY REFERENCES user_type(user_type_id),
+	created_date DATETIME NOT NULL
 );
 
 -- Table to carry teachers infomration
 CREATE TABLE teacher (
 	teacher_id INT IDENTITY(1, 1) PRIMARY KEY,
 	teacher_personal_information_id INT NOT NULL FOREIGN KEY REFERENCES user_personal_information(user_personal_information_id)
+);
+
+-- Table to carry guardian information
+CREATE TABLE guardian (
+	guardian_id INT IDENTITY(1, 1), PRIMARY KEY,
+	guardian_personal_information INT FOREIGN KEY REFERENCES user_personal_information(user_personal_information_id)
 );
 
 -- Table to carry grades
@@ -67,6 +74,13 @@ CREATE TABLE student (
 	student_informatio_id INT NOT NULL FOREIGN KEY REFERENCES user_personal_information(user_personal_information_id),
 	stream_id INT NOT NULL FOREIGN KEY REFERENCES stream(stream_id),
 	status_id INT NOT NULL FOREIGN KEY REFERENCES account_status(account_status_id)
+);
+
+-- Table to carry relationship between parents and students
+CREATE TABLE student_guardian (
+	student_guardian_id INT IDENTITY(1, 1) PRIMARY KEY,
+	guardian_id INT FOREIGN KEY REFERENCES guardian(guardian_id),
+	student_id INT FOREIGN KEY REFEENCES student(student_id)
 );
 
 -- Tables to carry Guardian information |Not Done|
