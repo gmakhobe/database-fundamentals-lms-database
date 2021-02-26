@@ -4,9 +4,9 @@ GO
 CREATE VIEW student_view  AS
     SELECT [dbo].[Student].StudentID, [dbo].[PersonalInfo].FirstName, 
 	[dbo].[PersonalInfo].LastName,[dbo].[Stream].SubjectID, [dbo].[Teacher].TeacherID
-	,[dbo].[Grade].GradeName
+	,[dbo].[Grade].GradeName, [dbo].[Status].StatusName
 	FROM
-	[dbo].[Student], [dbo].[PersonalInfo], [dbo].[Stream], [dbo].[Teacher], [dbo].[Grade]
+	[dbo].[Student], [dbo].[PersonalInfo], [dbo].[Stream], [dbo].[Teacher], [dbo].[Grade], [dbo].[Status]
 GO
 
 SELECT * FROM student_view
