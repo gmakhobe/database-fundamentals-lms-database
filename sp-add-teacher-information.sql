@@ -1,9 +1,11 @@
 --	This Stored Proc is for adding teacher information into
 --	teacher table, user_personal_information table and usertype
 CREATE PROCEDURE addTeacherInfomation
-	@full_name NVARCHAR(MAX),
+	@firstname NVARCHAR(MAX),
+	@lastname NVARCHAR(MAX),
 	@phone_numbe NVARCHAR(MAX),
-	@id_number NVARCHAR(MAX)
+	@id_number NVARCHAR(MAX),
+	@subject NVARCHAR(MAX)
 AS
 	-- Settings
 	SET NOCOUNT NO;
